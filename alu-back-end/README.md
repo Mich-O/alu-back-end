@@ -1,1 +1,1 @@
-Bsic API usage
+Basic API usage
