@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Script that, using a REST API, exports an employee's TODO list data to CSV format.
+Script that, using a REST API, exports an employee's TODO list data
+to a CSV file.
 """
 
 import csv
@@ -20,15 +21,15 @@ if __name__ == "__main__":
         sys.exit(1)
 
     base_url = "https://jsonplaceholder.typicode.com"
-    user = requests.get("{}/users/{}".format(base_url, employee_id)).json()
-    todos = requests.get("{}/todos?userId={}".format(base_url, employee_id)).json()
+    user_url = "{}/users/{}".format(base_url, employee_id)
+    todos_url = "{}/todos?userId={}".format(base_url, employee_id)
 
+    user = requests.get(user_url).json()
+    todos = requests.get(todos_url).json()
     username = user.get("username")
 
-    # Create a CSV file named <USER_ID>.csv
     filename = "{}.csv".format(employee_id)
 
-    # Open the file for writing
     with open(filename, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         for task in todos:
